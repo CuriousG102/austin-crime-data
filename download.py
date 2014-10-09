@@ -1,6 +1,7 @@
 import requests
 import datetime
 import os.path
+import sys
 
 RANGE = datetime.timedelta(days = 551) # How far back APD's database
                                            # goes from the present day
@@ -27,41 +28,50 @@ def grabDateRange(dateRange, path):
        dateRange = [datetime.date, datetime.date]
        path = String"""
 
+    ZERO_DAYS = datetime.timedelta(days = 0)
     ONE_DAY = datetime.timedelta(days = 1)
-    begin = dateRange[0]
-    end = dateRange[1]
-
-    AREAS = ['AVIATION', 'CENTRAL EAST', 'CENTRAL WEST', 'DOWNTOWN',
+    #AREAS = ['AVIATION', 'CENTRAL EAST', 'CENTRAL WEST', 'DOWNTOWN',
+    #         'NORTH CENTRAL', 'NORTH EAST', 'NORTH WEST', 'OUT OF AREA',
+    #         'SOUTH CENTRAL', 'SOUTH EAST', 'SOUTH WEST']
+   
+    AREAS = ['DOWNTOWN', # Temporary edit to keep from redoing all work
              'NORTH CENTRAL', 'NORTH EAST', 'NORTH WEST', 'OUT OF AREA',
              'SOUTH CENTRAL', 'SOUTH EAST', 'SOUTH WEST']
     
+
+    
     for area in AREAS:
+        begin = dateRange[0] + ZERO_DAYS
+        end = dateRange[1]
+
         if not os.path.exists(path + '/' + area):
-            os.path.makedirs(path + '/' + area)
+            os.makedirs(path + '/' + area)
 
         while begin <= end:
-            try:
+            #try:
                 page = getPage(begin, area)
-                with open(area + " " + begin, 'w') as f:
+                with open(path + "/" +  area + "/" + str(begin), 'w') as f:
                     f.write(page.text)
-                print "Success: " + area + " " + begin
+                print "Success: " + area + " " + str(begin)
                 begin += ONE_DAY
-            except:
-                print "Failure: " + area + " " + begin
-                print "Exception: " + sys.exc_info()[0]
-                print "Trying again"
+            #except:
+            #    print "Failure: " + area + " " + str(begin)
+            #    print "Exception: " + str(sys.exc_info()[0])
+            #    print "Trying again"
 
 def getPage(date, area):
-    dateString = "{:02d}/{:02d}/{:04d}".format(date.month, date.day, date.year)
+    try:
+        dateString = "{:02d}/{:02d}/{:04d}".format(date.month, date.day, date.year)
 
-    QUERY = {'startdate': dateString, 'numdays': '1', 'address': '',\
-             'rucrext': '', 'tract_num': '', 'zipcode': '', 'zone': '',\ 
-             'district': area, 'city': '', 'choice': 'criteria',\
-             'Submit': 'Submit'}
+        QUERY = {'startdate': dateString, 'numdays': '1', 'address': '',\
+                 'rucrext': '', 'tract_num': '', 'zipcode': '', 'zone': '',\
+                 'district': area, 'city': '', 'choice': 'criteria',\
+                 'Submit': 'Submit'}
 
-    r = requests.post("https://www.austintexas.gov/police/reports/search2.cfm", data = query)
+        r = requests.post("https://www.austintexas.gov/police/reports/search2.cfm", data = QUERY)
 
-    return r
+        return r
+    except:
+        raise
 
-                    
-                    
+if __name__ == '__main__': main()      
