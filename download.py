@@ -49,6 +49,7 @@ def grabDateRange(dateRange, path):
                 begin += ONE_DAY
             except:
                 print "Failure: " + area + " " + begin
+                print "Exception: " + sys.exc_info()[0]
                 print "Trying again"
 
 def getPage(date, area):
