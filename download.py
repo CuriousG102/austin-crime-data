@@ -14,7 +14,6 @@ def main(): # the function main in this module should only need to be run once
                                            # APD's database
 
     grabDateRange([past, present], '/Users/miles/Desktop/DT\ Web/police_scrape/')
-}
 
 def grabDateRange(dateRange, path):
     """Grabs the crime data page for days within this range(inclusive for
