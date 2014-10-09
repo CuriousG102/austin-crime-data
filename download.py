@@ -44,7 +44,7 @@ def grabDateRange(dateRange, path):
                 page = getPage(begin, area)
                 with open(area + " " + begin, 'w') as f:
                     f.write(page.text)
-                print "Success: " + area " " + begin
+                print "Success: " + area + " " + begin
                 begin += ONE_DAY
             except:
                 print "Failure: " + area + " " + begin
