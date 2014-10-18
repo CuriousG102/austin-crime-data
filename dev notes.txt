@@ -1,0 +1,110 @@
+tables[13]
+
+tables[14]
+	Report Number
+		contents
+			<tr>
+				2nd <td>
+	Date/Time of Report
+		contents
+			<tr>
+				4th <td>
+	Date/Time of Offense
+		contents
+			3rd <tr>
+				2nd <td>
+					<p>
+	Offense(s) # Need to figure out edge case of multiple offenses
+		contents
+			5th <tr>
+				<td>
+					<p>	
+
+
+IGNORE ABOVE DID NOT ACTUALLY FETCH TABLES WITH NON-RECURSIVE CALL
+
+Accessing the tables:
+
+<html>
+	<body>
+		<div>
+			<div>
+				<div>
+					2nd <div>
+As code: reports = soup.html.body.div.div.div.find_all(name = 'div', recursive = 'False')[1]
+
+Tables (Rules are for after the first and second entries, which will likely need special code) - Tables are produced by reports.find_all(name = 'table', recursive = False)
+
+tag and number:
+def getTag(tagToSearch, tagToFind, num):
+	return tagToSearch.find_all(name = tagToFind, recursive = False)[num]
+
+def traverseToTag(tagList, rootTag):
+	return traverseToTagb(deque(tagList), rootTag)
+
+def traverseToTagb(tagList, rootTag):
+	if len(tagList) <= 0:
+		return rootTag
+	
+	item = tagList.popleft()
+
+	tagToFind = item[0]
+	numTag = item[1]
+
+	return traverseToTagb(tagList, getTag(rootTag, tagToFind, numTag))
+
+
+def getInfo(tag):
+	return tag.find_all(text = True)[0]
+
+-- The following are found in odd-number index tables starting with index 1 (i.e. if table = tables[2k + 1] where k >= 0 and k < length of tables then it contains this information) --
+Report Number
+	<tr>
+		2nd <td>
+			<p>
+				<font>
+					<b>
+
+	Code: 
+		position = [('tr', 0), ('td', 1)]
+		getInfo(traverseToTag(position, table))
+Report Date/Time
+	<tr>
+		4th <td>
+			<p>
+	Code:
+		position = [('tr', 0), ('td', 3)]
+		getInfo(traverseToTag(position, table))
+Offense Date/Time
+	3rd <tr>
+		2nd <td>
+			<p>
+	Code:
+		position = [('tr', 2), ('td', 1)]
+		getInfo(traverseToTag(position, table))
+Offense(s)
+	5th <tr>
+		2nd <td>
+			for each table
+				<tr>
+					<td>
+						<p>
+	Code:
+		position = [('tr', 4), ('td', 1)]
+		offenses = traverseToTag(position, table)
+		offenseList = ""
+		for offense in offenses.find_all(name = 'table', recursive = False):
+			offenseList += getInfo(traverseToTag([('tr', 0), ('td', 0)], offense)) + "|||"
+
+Offense Location
+	Census Tract
+	District
+	Area Command
+Investigator Assigned
+-----------------------------------------------------------------------
+
+Businesses
+Victim(s)
+Vehicle(s)
+Property
+Case Summary
