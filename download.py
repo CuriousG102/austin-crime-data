@@ -9,18 +9,18 @@ RANGE = datetime.timedelta(days = 551) # How far back APD's database
 
 def main(): # the function main in this module should only need to be run once
             # after this we can simply add to our collection as necessary
-    present = datetime.date.today()
+    present = datetime.date.today() - 1
     past = present - RANGE                 # Lower bound (inclusive) of
                                            # range of dates to retrieve from
                                            # APD's database
 
-    grabDateRange([past, present], '/Users/miles/Desktop/DT\ Web/police_scrape/')
+    grabDateRange([past, present], 'data/')
 
 def grabDateRange(dateRange, path):
     """Grabs the crime data page for days within this range(inclusive for
        both sides). Grabs data one day at a time. Allowable ranges will have
        a beginning that is 551 days before the present, and an end that is
-       either the present or earlier. The beginning will be less than the end.
+       either the present - 1 day or earlier. The beginning will be less than the end.
        Writes this data to folders in the
        path provided. These folders mirror the available "areas" specified
        by APD.
@@ -38,20 +38,20 @@ def grabDateRange(dateRange, path):
         begin = dateRange[0] + ZERO_DAYS
         end = dateRange[1]
 
-        if not os.path.exists(path + '/' + area):
-            os.makedirs(path + '/' + area)
+        if not os.path.exists(os.path.join(path, area)):
+            os.makedirs(os.path.join(path, area))
 
         while begin <= end:
-            #try:
+            try:
                 page = getPage(begin, area)
-                with open(path + "/" +  area + "/" + str(begin), 'w') as f:
+                with open(os.path.join(path, area, str(begin)), 'w') as f:
                     f.write(page.text)
                 print("Success: " + area + " " + str(begin))
                 begin += ONE_DAY
-            #except:
-            #    print "Failure: " + area + " " + str(begin)
-            #    print "Exception: " + str(sys.exc_info()[0])
-            #    print "Trying again"
+            except:
+                print "Failure: " + area + " " + str(begin)
+                print "Exception: " + str(sys.exc_info()[0])
+                print "Trying again"
 
 def getPage(date, area):
     try:
