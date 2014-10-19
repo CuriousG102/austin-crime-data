@@ -3,30 +3,30 @@ import os
 
 class Database:
     def __init__(self, dbFileLoc):
+        self.col = 1
         self.identity = 0
         self.keys = {'id':0}
         self.table = []
         self.dbFileLoc = dbFileLoc
 
         if os.path.exists(dbFileLoc):
-            with open(dbFileLoc, 'r') as f:
-                self.col = 0
+            with open(dbFileLoc, 'rb') as f:
                 reader = csv.reader(f, dialect='excel')
-                colRow = next(reader)
+                colRow = reader.next()
                 for cell in colRow:
-                    self.keys[cell] = self.col
+                    self.keys[cell] = col
                     self.col += 1
                 self.table.append(colRow)
                 for row in reader:
                     self.table.append(row)
                     self.identity += 1
         else:
-            self.col = 1
             self.table.append([])
-        
+            
+
     def add(self, crime):
         rowToAdd = []
-        keys = list(crime.keys())
+        keys = crime.keys()
         for key in keys:
             if key not in self.keys:
                 self.keys[key] = self.col
@@ -42,7 +42,7 @@ class Database:
 
     def close(self):
         newColRow = []
-        keys = list(self.keys.keys())
+        keys = self.keys.keys()
         
         for i in range(0, len(keys)):
             newColRow.append('')
@@ -51,7 +51,7 @@ class Database:
             newColRow[self.keys[key]] = key
         
         self.table[0] = newColRow
-        with open(self.dbFileLoc, 'w') as f:
+        with open(self.dbFileLoc, 'wb') as f:
             writer = csv.writer(f, dialect='excel')
             writer.writerows(self.table)
 

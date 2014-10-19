@@ -52,7 +52,7 @@ def grabDateRange(dateRange, path):
                 page = getPage(begin, area)
                 with open(path + "/" +  area + "/" + str(begin), 'w') as f:
                     f.write(page.text)
-                print("Success: " + area + " " + str(begin))
+                print "Success: " + area + " " + str(begin)
                 begin += ONE_DAY
             #except:
             #    print "Failure: " + area + " " + str(begin)
