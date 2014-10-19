@@ -1,7 +1,7 @@
 austin-crime-data
 =================
 
-A suite of tools written in python to download, process, and display crime data posted by the Austin Police Department. Push requests are welcome and will be pulled if they are well written! See todo.md for task items that I have identified.
+A suite of tools written in python to download, process, and display crime data posted by the Austin Police Department. Push requests are welcome and will be pulled if they are well written! See todo.md for tasks that I have identified.
 
 The ultimate goal of this project is to have a solution which can easily be put on different server environments. This solution would be able to pull down crime data in the middle of the night (when taxing computational resources is not problematic),
 put it in a database, and display that data in a meaningful and dynamic way to users.
