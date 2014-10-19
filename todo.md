@@ -1,5 +1,5 @@
 ##Download
--[] write script to automatically download most recent pages that aren't already in data/
+- [] write script to automatically download most recent pages that aren't already in data/
 
 ##Process
 -[] fix id bug
