@@ -30,16 +30,10 @@ def grabDateRange(dateRange, path):
 
     ZERO_DAYS = datetime.timedelta(days = 0)
     ONE_DAY = datetime.timedelta(days = 1)
-    #AREAS = ['AVIATION', 'CENTRAL EAST', 'CENTRAL WEST', 'DOWNTOWN',
-    #         'NORTH CENTRAL', 'NORTH EAST', 'NORTH WEST', 'OUT OF AREA',
-    #         'SOUTH CENTRAL', 'SOUTH EAST', 'SOUTH WEST']
-   
-    AREAS = ['DOWNTOWN', # Temporary edit to keep from redoing all work
+    AREAS = ['AVIATION', 'CENTRAL EAST', 'CENTRAL WEST', 'DOWNTOWN',
              'NORTH CENTRAL', 'NORTH EAST', 'NORTH WEST', 'OUT OF AREA',
              'SOUTH CENTRAL', 'SOUTH EAST', 'SOUTH WEST']
-    
-
-    
+   
     for area in AREAS:
         begin = dateRange[0] + ZERO_DAYS
         end = dateRange[1]
