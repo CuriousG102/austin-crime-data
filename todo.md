@@ -3,6 +3,7 @@
 
 ##Process
 - [ ] fix id bug
+- [ ] write code to process the first crime on each page
 - [ ] create mySql database class
 
 ##Display
