@@ -26,7 +26,7 @@ class Database:
         
     def add(self, crime):
         rowToAdd = []
-        keys = list(crime.keys())
+        keys = crime.keys()
         for key in keys:
             if key not in self.keys:
                 self.keys[key] = self.col

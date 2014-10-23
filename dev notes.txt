@@ -6,7 +6,7 @@ Accessing the tables:
 			<div>
 				<div>
 					2nd <div>
-As code: reports = soup.html.body.div.div.div.find_all(name = 'div', recursive = 'False')[1]
+As code: reports = soup.html.body.div.div.div.find_all(name = 'div', recursive = False)[1]
 
 Tables (Rules are for after the first and second entries, which will likely need special code) - Tables are produced by reports.find_all(name = 'table', recursive = False)
 
