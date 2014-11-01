@@ -9,7 +9,7 @@ RANGE = datetime.timedelta(days = 551) # How far back APD's database
 
 def main(): # the function main in this module should only need to be run once
             # after this we can simply add to our collection as necessary
-    present = datetime.date.today() - 1
+    present = datetime.date.today() - datetime.timedelta(days = 1)
     past = present - RANGE                 # Lower bound (inclusive) of
                                            # range of dates to retrieve from
                                            # APD's database
@@ -49,9 +49,9 @@ def grabDateRange(dateRange, path):
                 print("Success: " + area + " " + str(begin))
                 begin += ONE_DAY
             except:
-                print "Failure: " + area + " " + str(begin)
-                print "Exception: " + str(sys.exc_info()[0])
-                print "Trying again"
+                print("Failure: " + area + " " + str(begin))
+                print("Exception: " + str(sys.exc_info()[0]))
+                print("Trying again")
 
 def getPage(date, area):
     try:
