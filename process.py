@@ -1,20 +1,22 @@
 import os
 import ctypes
-from database import Database
-from bs4 import BeautifulSoup
 from collections import deque
 import time
 import re
 
+from bs4 import BeautifulSoup
+
+from database import Database
+
 def main():
     PATH_TO_DATA = os.path.join(os.getcwd(), 'data')
-    database = Database(os.path.join(os.getcwd(), 'database', 'db.csv'))
+    DATABASE = Database(os.path.join(os.getcwd(), 'database', 'db.csv'))
 
     for dirpath, dirnames, filenames in os.walk(PATH_TO_DATA):
         for f in filenames:
             fName = os.path.join(dirpath, f)
             if not is_hidden(fName):
-                process(fName, database)
+                process(fName, DATABASE)
 
     database.close()
 
