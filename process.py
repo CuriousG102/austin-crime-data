@@ -18,7 +18,7 @@ def main():
             if not is_hidden(fName):
                 process(fName, DATABASE)
 
-    database.close()
+    DATABASE.close()
 
 # http://stackoverflow.com/questions/284115/cross-platform-hidden-file-detection
 def is_hidden(filepath):
