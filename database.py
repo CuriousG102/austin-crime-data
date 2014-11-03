@@ -51,13 +51,12 @@ class Database:
             newColRow[self.keys[key]] = key
         
         self.table[0] = newColRow
+        if not os.path.exists(os.path.dirname(self.dbFileLoc)):
+            os.makedirs(os.path.dirname(self.dbFileLoc))
+
         with open(self.dbFileLoc, 'w') as f:
-            writer = csv.writer(f, dialect='excel')
-            writer.writerows(self.table)
-
-
-
-
+                writer = csv.writer(f, dialect='excel')
+                writer.writerows(self.table)
 
 
 
