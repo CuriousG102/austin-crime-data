@@ -1,5 +1,5 @@
 ##Download
-- [ ] write script to automatically download most recent pages that aren't already in data/
+- [x] write script to automatically download most recent pages that aren't already in data/
 - [ ] add capacity to download utpd pdf
 
 ##Process
