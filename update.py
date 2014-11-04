@@ -18,10 +18,11 @@ def getUpdateRange():
     mostRecentDate = datetime.date.min
     for dirpath, dirnames, filenames in os.walk(PATH_TO_DATA):
         for f in filenames:
-            DATE_FORMAT = "%Y-%m-%d" 
-            date = datetime.datetime.strptime(f, DATE_FORMAT).date()
-            if mostRecentDate < date:
-                mostRecentDate = date
+            if not f.startswith('.'):	    
+		DATE_FORMAT = "%Y-%m-%d" 
+                date = datetime.datetime.strptime(f, DATE_FORMAT).date()
+                if mostRecentDate < date:
+                    mostRecentDate = date
      
     present = datetime.date.today() - datetime.timedelta(days = 1)
     past = mostRecentDate + 1
