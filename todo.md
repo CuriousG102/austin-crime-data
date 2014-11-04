@@ -16,7 +16,7 @@
 - [ ] generate abstract plan for using OpenStreetMaps, javascript slippy maps, to display crimes. May be drupal specific.
 
 ##Update
-- [ ] Broke cross-platform compatibility checking for hidden files. If a windows directory has a hidden file the program will fail. Needs fix.
+- [x] Broke cross-platform compatibility checking for hidden files. If a windows directory has a hidden file the program will fail. Needs fix.
 
 ##Other Tasks
 - [ ] create unit tests
