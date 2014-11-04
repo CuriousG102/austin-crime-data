@@ -20,3 +20,6 @@
 
 ##Other Tasks
 - [ ] create unit tests
+
+##Geocode
+- [ ] write code to get lat long for as many locations as possible every day, starting with the most recent days and working back
