@@ -15,6 +15,7 @@ def update():
 
 def getUpdateRange():
     PATH_TO_DATA = os.path.join(os.getcwd(), 'data', 'AVIATION')
+    ONE_DAY = datetime.timedelta(days = 1) 	
     mostRecentDate = datetime.date.min
     for dirpath, dirnames, filenames in os.walk(PATH_TO_DATA):
         for f in filenames:
@@ -24,8 +25,8 @@ def getUpdateRange():
                 if mostRecentDate < date:
                     mostRecentDate = date
      
-    present = datetime.date.today() - datetime.timedelta(days = 1)
-    past = mostRecentDate + 1
+    present = datetime.date.today() - ONE_DAY 
+    past = mostRecentDate + ONE_DAY
     
     return [past, present]
 
