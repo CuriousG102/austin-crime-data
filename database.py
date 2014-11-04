@@ -25,7 +25,23 @@ class Database:
         else:
             self.col = 1
             self.table.append([])
-        
+
+    def modify(self, crime, id):
+        rowToAdd = []
+        keys = crime.keys()
+        for key in keys:
+            if key not in self.keys:
+                self.keys[key] = self.col
+                self.reverseDict[self.col] = key
+                self.col += 1
+        for i in range(0, len(self.keys)):
+            rowToAdd.append('')
+        crime['id'] = id
+        for key in keys:
+            rowToAdd[self.keys[key]] = crime[key]
+
+        self.table[id + 1] = rowToAdd
+
     def add(self, crime):
         rowToAdd = []
         keys = crime.keys()
