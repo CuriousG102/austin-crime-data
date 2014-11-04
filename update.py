@@ -12,6 +12,7 @@ def update():
     download.grabDateRange(range_, 'data')
     DATABASE = Database(os.path.join(os.getcwd(), 'database', 'db.csv'))
     updateDatabase(range_, DATABASE)
+    DATABASE.close()
 
 def getUpdateRange():
     PATH_TO_DATA = os.path.join(os.getcwd(), 'data', 'AVIATION')
