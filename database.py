@@ -5,7 +5,7 @@ class Database:
     def __init__(self, dbFileLoc):
         self.identity = 0
         self.keys = {'id':0}
-        self.reverseDict{0:'id'}
+        self.reverseDict = {0:'id'}
         self.table = []
         self.dbFileLoc = dbFileLoc
 
