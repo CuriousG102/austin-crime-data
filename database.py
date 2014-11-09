@@ -16,7 +16,7 @@ class Database:
                 colRow = next(reader)
                 for cell in colRow:
                     self.keys[cell] = self.col
-                    self.reverseDict[self.col] = key
+                    self.reverseDict[self.col] = cell
                     self.col += 1
                 self.table.append(colRow)
                 for row in reader:
@@ -63,7 +63,7 @@ class Database:
         """
         Returns the number of entries we have
         """
-        return self.identity + 1
+        return self.identity
 
     def getID(self, id):
         row = self.table[id + 1]
