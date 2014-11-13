@@ -1,5 +1,6 @@
 import os
 import datetime
+import ctypes
 
 import download
 from database import Database
@@ -23,7 +24,7 @@ def getUpdateRange():
     for dirpath, dirnames, filenames in os.walk(PATH_TO_DATA):
         for f in filenames:
             fPath = os.path.join(dirpath, f)
-            if not is_hidden(fPath)
+            if not is_hidden(fPath):
                 DATE_FORMAT = "%Y-%m-%d" 
                 date = datetime.datetime.strptime(f, DATE_FORMAT).date()
                 if mostRecentDate < date:
