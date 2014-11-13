@@ -1,15 +1,17 @@
-import requests
 import datetime
 import os.path
 import sys
 
+import requests
+
+import settings
 RANGE = datetime.timedelta(days = 551) # How far back APD's database
                                            # goes from the present day
 
 
 def main(): # the function main in this module should only need to be run once
             # after this we can simply add to our collection as necessary
-    present = datetime.date.today() - datetime.timedelta(days = 1)
+    present = datetime.date.today() - datetime.timedelta(days = settings.DAYS_BACK)
     past = present - RANGE                 # Lower bound (inclusive) of
                                            # range of dates to retrieve from
                                            # APD's database

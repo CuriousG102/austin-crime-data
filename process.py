@@ -7,10 +7,11 @@ import re
 from bs4 import BeautifulSoup
 
 from database import Database
+import settings
 
 def main():
-    PATH_TO_DATA = os.path.join(os.getcwd(), 'data')
-    DATABASE = Database(os.path.join(os.getcwd(), 'database', 'db.csv'))
+    PATH_TO_DATA = settings.PATH_TO_DATA 
+    DATABASE = Database(settings.DATABASE_FILE_LOC)
 
     for dirpath, dirnames, filenames in os.walk(PATH_TO_DATA):
         for f in filenames:
