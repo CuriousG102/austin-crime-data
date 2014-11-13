@@ -63,7 +63,7 @@ class Database:
         """
         Returns the number of entries we have
         """
-        return self.identity + 1
+        return self.identity
 
     def getID(self, id):
         row = self.table[id + 1]
