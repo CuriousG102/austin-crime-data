@@ -59,7 +59,7 @@ def getPage(date, area):
     try:
         dateString = "{:02d}/{:02d}/{:04d}".format(date.month, date.day, date.year)
 
-        QUERY = {'startdate': dateString, 'numdays': '1', 'address': '',\
+        QUERY = {'startdate': dateString, 'numdays': '0', 'address': '',\
                  'rucrext': '', 'tract_num': '', 'zipcode': '', 'zone': '',\
                  'district': area, 'city': '', 'choice': 'criteria',\
                  'Submit': 'Submit'}
