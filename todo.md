@@ -7,7 +7,7 @@
 
 ##Process
 - [X] fix id bug
-- [ ] write code to process the first crime on each page
+- [X] write code to process the first crime on each page
 - [ ] create mySql database class
 - [ ] add capacity to process utpd pdf for crimes
 
@@ -23,3 +23,8 @@
 
 ##Geocode
 - [ ] write code to get lat long for as many locations as possible every day, starting with the most recent days and working back
+
+##Webpage
+- [ ] write code for people to filter crimes by different criteria
+- [ ] do not display and do not provide option to display certain crimes like domestic disputes
+
