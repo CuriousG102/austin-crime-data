@@ -45,6 +45,11 @@ def process(fName, database):
         if not soup.find_all(text = 
         re.compile('You may have selected mutually exclusive criteria')):
             tables = soup.find_all(name = 'table', recursive = False)
+            table = tables[0]
+            crime = getFirstCrimeData(table) # Ridiculously ugly edge case:
+                                             # The first crime on each page is
+                                             # listed differently.
+            database.add(crime)
             for i in range(1, len(tables), 2):
                 table = tables[i]
                 crime = getData(table)
@@ -52,6 +57,40 @@ def process(fName, database):
     
     timeTaken = time.time() - startTime
     print("Processed " + fName + " in " + str(timeTaken))
+
+def getFirstCrimeData(table):
+    crime = {}
+    
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 0), ('td', 1)]
+    crime['Report Number'] = getInfo(traverseToTag(position, table)).strip()
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 0), ('td', 3)]
+    crime['Report Date/Time'] = getInfo(traverseToTag(position, table)).strip() 
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 2), ('td', 1)]
+    crime['Offense Date/Time'] = getInfo(traverseToTag(position, 
+                                                       table)).strip()
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 4), ('td', 1)]
+    offenses = traverseToTag(position, table)
+    offenseList = ''
+    for offense in offenses.find_all(name = 'table', recursive = False):
+        offenseList += getInfo(traverseToTag([('tr', 0), ('td', 0)],
+                                              offense)).strip() + "|||"
+    crime['Offense(s)'] = offenseList
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 6), ('td', 1)]
+    crime['Offense Location Address'] = str(getInfo(traverseToTag(position, 
+                                                              table))).strip()
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 7), ('td', 1)]
+    crime['Offense Location Census Tract'] = str(traverseToTag(position, table).find_all(text = True)[1][2:]).strip()
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 7), ('td', 1)]
+    crime['Offense Location District'] = str(traverseToTag(position, table).find_all(text = True)[3][2:]).strip()
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 7), ('td', 1)]
+    crime['Offense Location Area Command'] = str(traverseToTag(position, table).find_all(text = True)[5][2:]).strip()
+
+    position = [('tr', 0), ('td', 0), ('table', 0), ('tr', 9), ('td', 1)]
+    crime['Investigator Assigned'] = getInfo(traverseToTag(position, 
+                                                           table)).strip()
+   
+    return crime 
+
 
 def getData(table): # ugly hack-ish code. IF you have a more elegant
                     # solution, please go for it and put this thing out
