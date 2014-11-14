@@ -4,6 +4,7 @@
 
 ##Database
 - [ ] Change code in add and modify so that add simply calls modify and there is no duplicated logic
+- [ ] There is a glitch in APD's site that occasionally duplicates a crime report. Write a script to go through Google Fusion Table and deduplicate (for first round of data). Write another to go through the csv table and deduplicate (for updates and future use).
 
 ##Process
 - [X] fix id bug

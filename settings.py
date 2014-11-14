@@ -17,4 +17,4 @@ DATABASE_FILE_LOC = os.path.join('database', 'db.csv')
 # risk that crimes have not been posted yet
 # A value of 1 is equivalent to saying "grab everything up to and including yesterday"
 
-DAYS_BACK = 7
+DAYS_BACK = 14
