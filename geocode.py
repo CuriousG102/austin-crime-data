@@ -19,7 +19,7 @@ def geocodeRecentFirst(db, api_key_):
     geocoder = geopy.geocoders.GoogleV3(api_key = api_key_)
     
     crimes = db.getAllCrimes()
-    crimes.sort(key = sortKey)
+    crimes.sort(key = sortKey, reverse = true)
 
     crimeIndex = 0
     outOfQueries = False
