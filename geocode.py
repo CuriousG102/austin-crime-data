@@ -1,7 +1,8 @@
 import datetime
 
-from geopy.geocoders import GoogleV3
+import geopy
 
+from database import Database
 import settings
 
 def main():
@@ -15,9 +16,10 @@ def geocodeRecentFirst(db, api_key_):
        the api key passed or your database is all geocoded.
     """
 
-    geocoder = GoogleV3(api_key = api_key_)
+    geocoder = geopy.geocoders.GoogleV3(api_key = api_key_)
     
-    crimes = db.getAllCrimes().sort(key = sortkey)
+    crimes = db.getAllCrimes()
+    crimes.sort(key = sortKey)
 
     crimeIndex = 0
     outOfQueries = False
@@ -25,7 +27,7 @@ def geocodeRecentFirst(db, api_key_):
 
     while(crimeIndex < len(crimes) and not(outOfQueries) and attempts < 4):
         crime = crimes[crimeIndex]
-        if crime['Geocoded'] != '1':
+        if not('Geocoded' in crime) or crime['Geocoded'] != '1':
             try:
                 crimeQuery = crime['Offense Location Address']
                 crimeLocInfo = geocoder.geocode(query = crimeQuery)
@@ -36,7 +38,7 @@ def geocodeRecentFirst(db, api_key_):
                 crime['Geocoded'] = '1'
                 crimeIndex += 1
                 attempts = 0
-                db.modify(crime, crime['id'])
+                db.modify(crime, int(crime['id']))
                 print('Success Crime ID:', crime['id'])
             except geopy.exc.GeocoderQueryError:
                 print('Crime ID:', crime['id'], 
