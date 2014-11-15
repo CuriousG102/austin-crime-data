@@ -6,6 +6,7 @@ import download
 from database import Database
 import process
 import settings
+import geocode
 
 def main():
     update()
@@ -15,6 +16,7 @@ def update():
     download.grabDateRange(range_, settings.PATH_TO_DATA)
     DATABASE = Database(settings.DATABASE_FILE_LOC)
     updateDatabase(range_, DATABASE)
+    geocode.geocodeRecentFirst(DATABASE, settings.GOOGLE_API_KEY)
     DATABASE.close()
 
 def getUpdateRange():

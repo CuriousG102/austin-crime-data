@@ -73,6 +73,19 @@ class Database:
         return dictToReturn
             
 
+    def getAllCrimes(self):
+        """
+        Return a list of ALL crimes in the database.
+        If you want to modify a crime then do your thing,
+        and then pass it back to the database with modify.
+        """
+
+        crimes = []
+        for i in range(0, len(self)):
+            crimes.append(self.getID(i))
+        return crimes
+        
+
     def close(self):
         newColRow = []
         keys = list(self.keys.keys())

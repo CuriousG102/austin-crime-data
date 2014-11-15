@@ -18,3 +18,7 @@ DATABASE_FILE_LOC = os.path.join('database', 'db.csv')
 # A value of 1 is equivalent to saying "grab everything up to and including yesterday"
 
 DAYS_BACK = 14
+
+# This is my key. You'll need to get your own at
+# console.developers.google.com ;-). Make sure you enable the Geocoding API
+GOOGLE_API_KEY = 'AIzaSyAD8Qj2Sz4XLzM1xFAJEnWtE3_vc9NGQuw'
