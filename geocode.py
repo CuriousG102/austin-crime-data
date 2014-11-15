@@ -61,3 +61,5 @@ def sortKey(crime):
     offenseTime = datetime.datetime.strptime(offenseTimeString,
                                              offenseTimeFormat)
     return offenseTime
+
+if __name__ == '__main__': main()
