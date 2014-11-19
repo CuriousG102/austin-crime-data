@@ -19,6 +19,7 @@ def update():
     try:
         geocode.geocodeRecentFirst(DATABASE, settings.GOOGLE_API_KEY)
     except:
+        print("Geocode Error:", sys.exc_info()[0])
         DATABASE.close()
     DATABASE.close()
 
