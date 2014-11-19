@@ -16,7 +16,10 @@ def update():
     download.grabDateRange(range_, settings.PATH_TO_DATA)
     DATABASE = Database(settings.DATABASE_FILE_LOC)
     updateDatabase(range_, DATABASE)
-    geocode.geocodeRecentFirst(DATABASE, settings.GOOGLE_API_KEY)
+    try:
+        geocode.geocodeRecentFirst(DATABASE, settings.GOOGLE_API_KEY)
+    except:
+        DATABASE.close()
     DATABASE.close()
 
 def getUpdateRange():

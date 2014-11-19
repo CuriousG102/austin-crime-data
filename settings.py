@@ -20,5 +20,5 @@ DATABASE_FILE_LOC = os.path.join('database', 'db.csv')
 DAYS_BACK = 14
 
 # This is my key. You'll need to get your own at
-# console.developers.google.com ;-). Make sure you enable the Geocoding API
+# console.developers.google.com ;-). Make sure you enable the Geocoding API and basically any API with the word "fusion" in it
 GOOGLE_API_KEY = 'AIzaSyAD8Qj2Sz4XLzM1xFAJEnWtE3_vc9NGQuw'
