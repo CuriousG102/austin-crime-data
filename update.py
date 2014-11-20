@@ -22,6 +22,7 @@ def update():
     except:
         print("Geocode Error:", sys.exc_info()[0])
         DATABASE.close()
+        print("Database saved: No loss of data suffered.")
     DATABASE.close()
 
 def getUpdateRange():
