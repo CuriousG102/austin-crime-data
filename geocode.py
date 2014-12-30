@@ -25,7 +25,8 @@ def geocodeRecentFirst(db, api_key_):
     outOfQueries = False
     attempts = -1
 
-    while(crimeIndex < len(crimes) and not(outOfQueries) and attempts < settings.ACCEPTABLE_GEOCODE_TIME_OUTS):
+    while((crimeIndex < len(crimes)) and (not (outOfQueries)) 
+          and (attempts < settings.ACCEPTABLE_GEOCODE_TIME_OUTS)):
         crime = crimes[crimeIndex]
         if not('Geocoded' in crime) or crime['Geocoded'] != '1':
             try:
