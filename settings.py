@@ -22,3 +22,10 @@ DAYS_BACK = 14
 # This is my key. You'll need to get your own at
 # console.developers.google.com ;-). Make sure you enable the Geocoding API and basically any API with the word "fusion" in it
 GOOGLE_API_KEY = 'AIzaSyAD8Qj2Sz4XLzM1xFAJEnWtE3_vc9NGQuw'
+
+# How many times can the server time out trying to geocode something in a row before it should quit?
+ACCEPTABLE_GEOCODE_TIME_OUTS = 4
+
+# How many times can the geocoder (which deals with volatile input and therefore sometimes fails with an exception)
+# throw an exception in a row and be rebooted before the program gives up on it and saves the database?
+ACCEPTABLE_GEOCODE_EXCEPTIONS = 2

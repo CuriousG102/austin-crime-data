@@ -17,12 +17,20 @@ def update():
     download.grabDateRange(range_, settings.PATH_TO_DATA)
     DATABASE = Database(settings.DATABASE_FILE_LOC)
     updateDatabase(range_, DATABASE)
-    try:
-        geocode.geocodeRecentFirst(DATABASE, settings.GOOGLE_API_KEY)
-    except:
-        print("Geocode Error:", sys.exc_info()[0])
-        DATABASE.close()
-        print("Database saved: No loss of data suffered.")
+    attempts = -1
+    while (attempts < settings.ACCEPTABLE_GEOCODE_EXCEPTIONS):
+        try:
+            geocode.geocodeRecentFirst(DATABASE, settings.GOOGLE_API_KEY)
+            attempts = 0
+        except:
+            print("Geocode Error:", sys.exc_info()[0])
+            attempts += 1
+
+    if (not attempts < settings.ACCEPTABLE_GEOCODE_EXCEPTIONS):
+        print("The geocoder suffered more than your allowed settings.ACCEPTABLE_GEOCODE_EXCEPTIONS: ", 
+                settings.ACCEPTABLE_GEOCODE_EXCEPTIONS, " and so it has been shut down.")
+    DATABASE.close()
+    print("Database saved: No loss of data suffered.")
     DATABASE.close()
 
 def getUpdateRange():
