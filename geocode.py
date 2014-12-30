@@ -58,7 +58,7 @@ def geocodeRecentFirst(db, api_key_):
             crimeIndex += 1
     if (not attempts < settings.ACCEPTABLE_GEOCODE_TIME_OUTS):
         print("The geocoder suffered more than your allowed settings.ACCEPTABLE_GEOCODE_TIME_OUTS: ", 
-                settings.ACCEPTABLE_GEOCODE_TIME_OUTS, " and so it has been shut down."))
+                settings.ACCEPTABLE_GEOCODE_TIME_OUTS, " and so it has been shut down.")
 
 def sortKey(crime):
     offenseTimeString = crime['Offense Date/Time']
