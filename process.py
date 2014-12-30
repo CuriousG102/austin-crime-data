@@ -40,7 +40,7 @@ def has_hidden_attribute(filepath):
 def process(fName, database):
     startTime = time.time()
     with open(fName) as f:
-        soup = BeautifulSoup(f)
+        soup = BeautifulSoup(f, 'html.parser')
         
         if not soup.find_all(text = 
         re.compile('You may have selected mutually exclusive criteria')):
