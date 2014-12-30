@@ -44,7 +44,7 @@ def geocodeRecentFirst(db, api_key_):
                 print('Crime ID:', crime['id'], 
                       'FAIL', 'with GeocoderQueryError')
                 crimeIndex += 1
-                attempts = 0
+                attempts += 1
             except geopy.exc.GeocoderQuotaExceeded:
                 print('Out of queries. We\'re done for today')
                 outOfQueries = True
@@ -52,6 +52,11 @@ def geocodeRecentFirst(db, api_key_):
                 print('Geocode request for crime id', crime['id'],
                       'timed out at', datetime.datetime.now())
                 attempts += 1
+            except geopy.exc.AttributeError:
+                print('Geocode request for crime id', crime['id'],
+                      'failed with AttributeError. Moving to next crime.')
+                attempts += 1
+                crimeIndex += 1
             except:
                 raise
         else:
