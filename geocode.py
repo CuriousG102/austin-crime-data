@@ -52,7 +52,7 @@ def geocodeRecentFirst(db, api_key_):
                 print('Geocode request for crime id', crime['id'],
                       'timed out at', datetime.datetime.now())
                 attempts += 1
-            except geopy.exc.AttributeError:
+            except AttributeError:
                 print('Geocode request for crime id', crime['id'],
                       'failed with AttributeError. Moving to next crime.')
                 attempts += 1
