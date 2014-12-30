@@ -18,13 +18,15 @@ def update():
     DATABASE = Database(settings.DATABASE_FILE_LOC)
     updateDatabase(range_, DATABASE)
     attempts = -1
-    while (attempts < settings.ACCEPTABLE_GEOCODE_EXCEPTIONS):
+    while (True):
         try:
             geocode.geocodeRecentFirst(DATABASE, settings.GOOGLE_API_KEY)
-            attempts = 0
+            break
         except:
             print("Geocode Error:", sys.exc_info()[0])
             attempts += 1
+            if (attempts < settings.ACCEPTABLE_GEOCODE_EXCEPTIONS):
+                break
 
     if (not attempts < settings.ACCEPTABLE_GEOCODE_EXCEPTIONS):
         print("The geocoder suffered more than your allowed settings.ACCEPTABLE_GEOCODE_EXCEPTIONS: ", 
