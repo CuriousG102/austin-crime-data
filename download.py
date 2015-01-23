@@ -59,12 +59,14 @@ def getPage(date, area):
     try:
         dateString = "{:02d}/{:02d}/{:04d}".format(date.month, date.day, date.year)
 
-        QUERY = {'startdate': dateString, 'numdays': '0', 'address': '',\
-                 'rucrext': '', 'tract_num': '', 'zipcode': '', 'zone': '',\
-                 'district': area, 'city': '', 'choice': 'criteria',\
+        QUERY = {'startdate': dateString, 'numdays': '0', 'address': '',
+                 'rucrext': '', 'tract_num': '', 'zipcode': '', 'zone': '',
+                 'district': area, 'city': '', 'choice': 'criteria',
                  'Submit': 'Submit'}
 
-        r = requests.post("https://www.austintexas.gov/police/reports/search2.cfm", data = QUERY)
+        r = requests.get("https://www.austintexas.gov/police/reports/search2.cfm", 
+                         params = QUERY,
+                         cookies = {"APD_IRSEARCH":"true"})
 
         return r
     except:
