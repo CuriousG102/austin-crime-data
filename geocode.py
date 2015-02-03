@@ -1,4 +1,5 @@
 import datetime
+import time
 
 import geopy
 
@@ -24,14 +25,22 @@ def geocodeRecentFirst(db, api_key_):
     crimeIndex = 0
     outOfQueries = False
     attempts = -1
+    startTime = time.clock()
 
     while((crimeIndex < len(crimes)) and (not outOfQueries) 
           and (attempts < settings.ACCEPTABLE_GEOCODE_TIME_OUTS)):
+        if time.clock() - startTime < 0.2: # rate limited to 5 per second
+            sleepTime = .2 - (time.clock() - startTime) # prevent giving time.sleep
+                                                        # a negative number
+            if sleepTime > 0:
+                time.sleep(sleepTime)
+
         crime = crimes[crimeIndex]
         if not('Geocoded' in crime) or crime['Geocoded'] != '1':
             try:
                 crimeQuery = crime['Offense Location Address']
-                crimeLocInfo = geocoder.geocode(query = crimeQuery)
+                crimeLocInfo = geocoder.geocode(query = crimeQuery)		
+                startTime = time.clock()
                 crime['Formatted Address'] = str(crimeLocInfo.address)
                 crime['Latitude'] = str(crimeLocInfo.latitude)
                 crime['Longitude'] = str(crimeLocInfo.longitude)
@@ -62,6 +71,7 @@ def geocodeRecentFirst(db, api_key_):
                 raise
         else:
             crimeIndex += 1
+        
     if (not attempts < settings.ACCEPTABLE_GEOCODE_TIME_OUTS):
         print("The geocoder suffered more than your allowed settings.ACCEPTABLE_GEOCODE_TIME_OUTS: ", 
                 settings.ACCEPTABLE_GEOCODE_TIME_OUTS, " and so it has been shut down.")
